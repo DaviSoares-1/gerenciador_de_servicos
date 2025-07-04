@@ -366,7 +366,8 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 						"Higienização",
 						"Aplicação de cera",
 						"Aplicação de Produto",
-						"Polimento"
+						"Polimento",
+						"Revitalização de Faróis"
 					].map((servico) => (
 						<label
 							key={servico}
