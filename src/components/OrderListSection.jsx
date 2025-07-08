@@ -32,6 +32,13 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 								}).format(+order.total)}
 							</p>
 							<p>
+								<strong>Caixinha:</strong>{" "}
+								{new Intl.NumberFormat("pr-BR", {
+									style: "currency",
+									currency: "BRL"
+								}).format(+order.caixinha)}
+							</p>
+							<p>
 								<strong>Ordem n°:</strong> {order.carroNumero}
 							</p>
 							<p>
