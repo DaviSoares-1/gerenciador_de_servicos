@@ -1,15 +1,143 @@
-import React from "react"
+import React, { useState } from "react"
 
 function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
+	const [filtros, setFiltros] = useState({
+		modelo: "",
+		placa: "",
+		total: "",
+		caixinha: "",
+		numero: "",
+		status: ""
+	})
+
+	const handleChange = (e) => {
+		const { name, value } = e.target
+		setFiltros((prev) => ({ ...prev, [name]: value }))
+	}
+
+	const handleLimparFiltro = () => {
+		setFiltros({
+			modelo: "",
+			placa: "",
+			total: "",
+			caixinha: "",
+			numero: "",
+			status: ""
+		})
+	}
+
+	const formatBRL = (valor) =>
+		new Intl.NumberFormat("pt-BR", {
+			style: "currency",
+			currency: "BRL"
+		}).format(+valor)
+
+	const ordersFiltradas = [...deletedOrders].filter((order) => {
+		const matchModelo = filtros.modelo
+			? order.modeloCarro?.toUpperCase().includes(filtros.modelo.toUpperCase())
+			: true
+		const matchPlaca = filtros.placa
+			? order.placaCarro?.toUpperCase().includes(filtros.placa.toUpperCase())
+			: true
+		const matchTotal = filtros.total
+			? Number(order.total) === Number(filtros.total)
+			: true
+		const matchCaixinha = filtros.caixinha
+			? Number(order.caixinha) === Number(filtros.caixinha)
+			: true
+		const matchNumero = filtros.numero
+			? Number(order.carroNumero) === Number(filtros.numero)
+			: true
+		const matchStatus = filtros.status
+			? order.status.toLowerCase() === filtros.status.toLowerCase()
+			: true
+
+		return (
+			matchModelo &&
+			matchPlaca &&
+			matchTotal &&
+			matchCaixinha &&
+			matchNumero &&
+			matchStatus
+		)
+	})
+
 	return (
 		<>
-			{deletedOrders.length === 0 ? (
-				<p className="text-center text-gray-400">
-					Nenhuma ordem excluída ainda.
-				</p>
+			<div className="mb-6 bg-gray-800 text-white p-4 rounded">
+				<h2 className="text-2xl font-semibold mb-4 text-center">🔍 Filtros da Lixeira</h2>
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+					<input
+						type="text"
+						name="modelo"
+						value={filtros.modelo}
+						onChange={handleChange}
+						placeholder="Modelo do veículo"
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					/>
+					<input
+						type="text"
+						name="placa"
+						value={filtros.placa}
+						onChange={handleChange}
+						placeholder="Placa do veículo"
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					/>
+					<input
+						type="number"
+						name="total"
+						value={filtros.total}
+						onChange={handleChange}
+						placeholder="Valor total (ex: R$ 30,00)"
+						min={0}
+						step={0.01}
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					/>
+					<input
+						type="number"
+						name="caixinha"
+						value={filtros.caixinha}
+						onChange={handleChange}
+						placeholder="Caixinha (ex: R$ 5,00)"
+						min={0}
+						step={0.01}
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					/>
+					<input
+						type="number"
+						name="numero"
+						value={filtros.numero}
+						onChange={handleChange}
+						placeholder="Numeração do veículo"
+						min={0}
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					/>
+					<select
+						name="status"
+						value={filtros.status}
+						onChange={handleChange}
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					>
+						<option value="">Todos os status</option>
+						<option value="em processamento">Em processamento</option>
+						<option value="processada">Processada</option>
+					</select>
+				</div>
+				<div className="mt-4 flex justify-center">
+					<button
+						onClick={handleLimparFiltro}
+						className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+					>
+						Limpar Filtro
+					</button>
+				</div>
+			</div>
+
+			{ordersFiltradas.length === 0 ? (
+				<p className="text-center text-gray-400">Nenhuma ordem na lixeira.</p>
 			) : (
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-					{[...deletedOrders]
+					{ordersFiltradas
 						.sort((a, b) => Number(a.carroNumero) - Number(b.carroNumero))
 						.map((order) => (
 							<div
@@ -17,8 +145,7 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 								className="bg-gray-700 text-white p-4 md:p-5 rounded shadow w-full text-lg min-h-[260px] flex flex-col justify-between"
 							>
 								<p>
-									<strong>Responsável:</strong>{" "}
-									{order.responsavel.toUpperCase()}
+									<strong>Responsável:</strong> {order.responsavel.toUpperCase()}
 								</p>
 								<p>
 									<strong>Modelo:</strong> {order.modeloCarro.toUpperCase()}
@@ -27,18 +154,10 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 									<strong>Placa:</strong> {order.placaCarro.toUpperCase()}
 								</p>
 								<p>
-									<strong>Total:</strong>{" "}
-									{new Intl.NumberFormat("pt-BR", {
-										style: "currency",
-										currency: "BRL"
-									}).format(+order.total)}
+									<strong>Total:</strong> {formatBRL(order.total)}
 								</p>
 								<p>
-									<strong>Caixinha:</strong>{" "}
-									{new Intl.NumberFormat("pr-BR", {
-										style: "currency",
-										currency: "BRL"
-									}).format(+order.caixinha)}
+									<strong>Caixinha:</strong> {formatBRL(order.caixinha)}
 								</p>
 								<p>
 									<strong>Ordem n°:</strong> {order.carroNumero}

@@ -1,74 +1,199 @@
-import React from "react"
+import React, { useState } from "react"
 import { generatePDF } from "../utils/generatePDF"
 
 function OrderListSection({ orders, onEdit, onDelete }) {
+	const [filtros, setFiltros] = useState({
+		modelo: "",
+		placa: "",
+		total: "",
+		caixinha: "",
+		numero: "",
+		status: ""
+	})
+
+	const handleChange = (e) => {
+		const { name, value } = e.target
+		setFiltros((prev) => ({ ...prev, [name]: value }))
+	}
+
+	const handleLimparFiltro = () => {
+		setFiltros({
+			modelo: "",
+			placa: "",
+			total: "",
+			caixinha: "",
+			numero: "",
+			status: ""
+		})
+	}
+
+	const formatBRL = (valor) =>
+		new Intl.NumberFormat("pt-BR", {
+			style: "currency",
+			currency: "BRL"
+		}).format(+valor)
+
+	const ordersFiltradas = [...orders].filter((order) => {
+		const matchModelo = filtros.modelo
+			? order.modeloCarro?.toUpperCase().includes(filtros.modelo.toUpperCase())
+			: true
+		const matchPlaca = filtros.placa
+			? order.placaCarro?.toUpperCase().includes(filtros.placa.toUpperCase())
+			: true
+		const matchTotal = filtros.total
+			? Number(order.total) === Number(filtros.total)
+			: true
+		const matchCaixinha = filtros.caixinha
+			? Number(order.caixinha) === Number(filtros.caixinha)
+			: true
+		const matchNumero = filtros.numero
+			? Number(order.carroNumero) === Number(filtros.numero)
+			: true
+		const matchStatus = filtros.status
+			? order.status.toLowerCase() === filtros.status.toLowerCase()
+			: true
+
+		return (
+			matchModelo &&
+			matchPlaca &&
+			matchTotal &&
+			matchCaixinha &&
+			matchNumero &&
+			matchStatus
+		)
+	})
+
 	return (
 		<>
-		{orders.length === 0 ? (
-				<p className="text-center text-gray-400">Nenhuma ordem foi criada ainda.</p>
-			) : (
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-				{[...orders]
-					.sort((a, b) => Number(a.carroNumero) - Number(b.carroNumero))
-					.map((order) => (
-						<div
-							key={order.id}
-							className="bg-yellow-500 p-4 md:p-5 rounded shadow w-full text-lg min-h-[260px] flex flex-col justify-between flex-wrap"
-						>
-							<p>
-								<strong>Responsável:</strong> {order.responsavel.toUpperCase()}
-							</p>
-							<p>
-								<strong>Modelo:</strong> {order.modeloCarro.toUpperCase()}
-							</p>
-							<p>
-								<strong>Placa:</strong> {order.placaCarro.toUpperCase()}
-							</p>
-							<p>
-								<strong>Total:</strong>{" "}
-								{new Intl.NumberFormat("pr-BR", {
-									style: "currency",
-									currency: "BRL"
-								}).format(+order.total)}
-							</p>
-							<p>
-								<strong>Caixinha:</strong>{" "}
-								{new Intl.NumberFormat("pr-BR", {
-									style: "currency",
-									currency: "BRL"
-								}).format(+order.caixinha)}
-							</p>
-							<p>
-								<strong>Ordem n°:</strong> {order.carroNumero}
-							</p>
-							<p>
-								<strong>Status:</strong> {order.status}
-							</p>
-							<div className="flex gap-2 mt-2">
-								<button
-									onClick={() => onEdit(order)}
-									className="bg-yellow-400 px-2 py-1 rounded cursor-pointer"
-								>
-									Editar
-								</button>
-								<button
-									onClick={() => onDelete(order)}
-									className="bg-red-500 text-white px-2 py-1 rounded cursor-pointer"
-								>
-									Excluir
-								</button>
-								{order.status === "processada" && (
-									<button
-										onClick={() => generatePDF(order)}
-										className="bg-green-600 text-white px-2 py-1 rounded cursor-pointer"
-									>
-										Baixar
-									</button>
-								)}
-							</div>
-						</div>
-					))}
+			<div className="flex flex-col items-center gap-3 mb-6">
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-5xl">
+					<input
+						type="text"
+						name="modelo"
+						value={filtros.modelo}
+						onChange={handleChange}
+						placeholder="Modelo do veículo"
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					/>
+					<input
+						type="text"
+						name="placa"
+						value={filtros.placa}
+						onChange={handleChange}
+						placeholder="Placa do veículo"
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					/>
+					<input
+						type="number"
+						name="total"
+						value={filtros.total}
+						onChange={handleChange}
+						placeholder="Valor total (ex: R$ 30,00)"
+						min={0}
+						step={0.01}
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					/>
+					<input
+						type="number"
+						name="caixinha"
+						value={filtros.caixinha}
+						onChange={handleChange}
+						placeholder="Caixinha (ex: R$ 5,00)"
+						min={0}
+						step={0.01}
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					/>
+					<input
+						type="number"
+						name="numero"
+						value={filtros.numero}
+						onChange={handleChange}
+						placeholder="Numeração do veículo"
+						min={0}
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					/>
+					<select
+						name="status"
+						value={filtros.status}
+						onChange={handleChange}
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+					>
+						<option value="">Todos os status</option>
+						<option value="em processamento">Em processamento</option>
+						<option value="processada">Processada</option>
+					</select>
+				</div>
+
+				<div className="flex gap-2 mt-2">
+					<button
+						onClick={handleLimparFiltro}
+						className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+					>
+						Limpar Filtros
+					</button>
+				</div>
 			</div>
+
+			{ordersFiltradas.length === 0 ? (
+				<p className="text-center text-gray-400">
+					Nenhuma ordem encontrada.
+				</p>
+			) : (
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+					{ordersFiltradas
+						.sort((a, b) => Number(a.carroNumero) - Number(b.carroNumero))
+						.map((order) => (
+							<div
+								key={order.id}
+								className="bg-yellow-500 p-4 md:p-5 rounded shadow w-full text-lg min-h-[260px] flex flex-col justify-between"
+							>
+								<p>
+									<strong>Responsável:</strong>{" "}
+									{order.responsavel.toUpperCase()}
+								</p>
+								<p>
+									<strong>Modelo:</strong> {order.modeloCarro.toUpperCase()}
+								</p>
+								<p>
+									<strong>Placa:</strong> {order.placaCarro.toUpperCase()}
+								</p>
+								<p>
+									<strong>Total:</strong> {formatBRL(order.total)}
+								</p>
+								<p>
+									<strong>Caixinha:</strong> {formatBRL(order.caixinha)}
+								</p>
+								<p>
+									<strong>Ordem n°:</strong> {order.carroNumero}
+								</p>
+								<p>
+									<strong>Status:</strong> {order.status}
+								</p>
+								<div className="flex gap-2 mt-2 flex-wrap">
+									<button
+										onClick={() => onEdit(order)}
+										className="bg-yellow-400 px-2 py-1 rounded cursor-pointer"
+									>
+										Editar
+									</button>
+									<button
+										onClick={() => onDelete(order)}
+										className="bg-red-500 text-white px-2 py-1 rounded cursor-pointer"
+									>
+										Excluir
+									</button>
+									{order.status === "processada" && (
+										<button
+											onClick={() => generatePDF(order)}
+											className="bg-green-600 text-white px-2 py-1 rounded cursor-pointer"
+										>
+											Baixar
+										</button>
+									)}
+								</div>
+							</div>
+						))}
+				</div>
 			)}
 		</>
 	)
