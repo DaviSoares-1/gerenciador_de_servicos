@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react"
+import React, { useState, useMemo, useEffect } from "react"
 import useOrders from "../store/useOrders"
 
 function RelatorioDiario() {
@@ -9,6 +9,17 @@ function RelatorioDiario() {
 	const [mostrarInputs, setMostrarInputs] = useState(false)
 	const [gastoEditandoIndex, setGastoEditandoIndex] = useState(null)
 	const [gastoEditado, setGastoEditado] = useState({ descricao: "", valor: 0 })
+
+	// Carrega os gastos do localStorage ao montar o componente
+	useEffect(() => {
+		const gastosSalvos = JSON.parse(localStorage.getItem("gastosDiarios")) || []
+		setGastos(gastosSalvos)
+	}, [])
+
+	// Salva os gastos no localStorage sempre que eles forem atualizados
+	useEffect(() => {
+		localStorage.setItem("gastosDiarios", JSON.stringify(gastos))
+	}, [gastos])
 
 	const formatarBRL = (valor) =>
 		valor.toLocaleString("pt-BR", {
