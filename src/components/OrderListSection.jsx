@@ -65,7 +65,8 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 
 	return (
 		<>
-			<div className="flex flex-col items-center gap-3 mb-6">
+			<div className="flex flex-col items-center gap-3 mb-6 text-white">
+				<h2 className="text-2xl font-semibold mb-4 text-center">🔍 Pesquisa por Veículos 🔍</h2>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-5xl">
 					<input
 						type="text"

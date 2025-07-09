@@ -65,7 +65,7 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 	return (
 		<>
 			<div className="mb-6 bg-gray-800 text-white p-4 rounded">
-				<h2 className="text-2xl font-semibold mb-4 text-center">🔍 Filtros da Lixeira</h2>
+				<h2 className="text-2xl font-semibold mb-4 text-center">🔍 Pesquisa por Veículos 🔍</h2>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 					<input
 						type="text"
