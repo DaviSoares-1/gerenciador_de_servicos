@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react"
 import useOrders from "../store/useOrders"
+import { generateRelatorioDiarioPDF } from "../utils/RelatorioPDF"
 
 function RelatorioDiario() {
 	const { orders, deletedOrders } = useOrders()
@@ -32,7 +33,8 @@ function RelatorioDiario() {
 
 		orders.forEach((order) => {
 			if (order.status === "em processamento" && !order.formaPagamento) {
-				totalSemFormaPagamento += parseFloat(order.total || 0) + parseFloat(order.cantina || 0)
+				totalSemFormaPagamento +=
+					parseFloat(order.total || 0) + parseFloat(order.cantina || 0)
 			}
 		})
 
@@ -47,7 +49,7 @@ function RelatorioDiario() {
 			"Cartão de Crédito/Débito": 0,
 			PIX: 0,
 			Caixinha: 0,
-			Cantina: 0,
+			Cantina: 0
 		}
 
 		const ordensPersistentes =
@@ -65,7 +67,7 @@ function RelatorioDiario() {
 					formaPagamento: "",
 					total: 0,
 					caixinha: 0,
-					cantina: 0,
+					cantina: 0
 				}
 			}
 
@@ -75,7 +77,7 @@ function RelatorioDiario() {
 					formaPagamento: order.formaPagamento,
 					total: valor,
 					caixinha: caixinha,
-					cantina: cantina,
+					cantina: cantina
 				}
 			}
 		})
@@ -121,6 +123,14 @@ function RelatorioDiario() {
 			setGastos([])
 			window.location.reload() // força recarregamento para limpar visualmente os dados
 		}
+	}
+
+	const handleBaixarRelatorio = () => {
+		generateRelatorioDiarioPDF({
+			totalServicosPrestados,
+			valoresRecebidos,
+			gastos
+		})
 	}
 
 	return (
@@ -308,7 +318,13 @@ function RelatorioDiario() {
 				</ul>
 			</div>
 			{/* Botão para limpar todos os dados */}
-			<div className="text-center">
+			<div className="flex gap-4 justify-center flex-wrap">
+				<button
+					onClick={handleBaixarRelatorio}
+					className="mt-4 bg-green-600 hover:bg-green-800 text-white px-6 py-3 rounded-lg text-lg font-bold cursor-pointer"
+				>
+					📥 Baixar Relatório Diário
+				</button>
 				<button
 					onClick={handleLimparDados}
 					className="mt-4 bg-red-700 hover:bg-red-800 text-white px-6 py-3 rounded-lg text-lg font-bold cursor-pointer"
