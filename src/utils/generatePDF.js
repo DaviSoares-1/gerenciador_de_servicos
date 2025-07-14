@@ -50,6 +50,10 @@ export const generatePDF = async (order) => {
 		style: "currency",
 		currency: "BRL"
 	}).format(+order.caixinha)
+	const cantinaFormatado = new Intl.NumberFormat("pr-BR", {
+		style: "currency",
+		currency: "BRL"
+	}).format(+order.cantina)
 
 	const addLine = (text) => {
 		doc.setFontSize(16)
@@ -79,6 +83,7 @@ export const generatePDF = async (order) => {
 
 	addLine(`Total a Pagar: ${totalPagoFormatado}`)
 	addLine(`Caixinha: ${caixinhaFormatado}`)
+	addLine(`Cantina: ${cantinaFormatado}`)
 
 	addLine(`Forma de Pagamento: ${order.formaPagamento}`)
 	if (order.formaPagamento === "Outros") {
