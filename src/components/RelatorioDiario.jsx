@@ -32,7 +32,7 @@ function RelatorioDiario() {
 
 		orders.forEach((order) => {
 			if (order.status === "em processamento" && !order.formaPagamento) {
-				totalSemFormaPagamento += parseFloat(order.total || 0)
+				totalSemFormaPagamento += parseFloat(order.total || 0) + parseFloat(order.cantina || 0)
 			}
 		})
 
@@ -46,7 +46,8 @@ function RelatorioDiario() {
 			Dinheiro: 0,
 			"Cartão de Crédito/Débito": 0,
 			PIX: 0,
-			Caixinha: 0
+			Caixinha: 0,
+			Cantina: 0,
 		}
 
 		const ordensPersistentes =
@@ -56,13 +57,15 @@ function RelatorioDiario() {
 			const id = order.id || order.numero || JSON.stringify(order)
 			const valor = parseFloat(order.total || 0)
 			const caixinha = parseFloat(order.caixinha || 0)
+			const cantina = parseFloat(order.cantina || 0)
 
 			// Se reaberta, zera os valores
 			if (order.status !== "processada" || !order.formaPagamento) {
 				ordensPersistentes[id] = {
 					formaPagamento: "",
 					total: 0,
-					caixinha: 0
+					caixinha: 0,
+					cantina: 0,
 				}
 			}
 
@@ -71,7 +74,8 @@ function RelatorioDiario() {
 				ordensPersistentes[id] = {
 					formaPagamento: order.formaPagamento,
 					total: valor,
-					caixinha: caixinha
+					caixinha: caixinha,
+					cantina: cantina,
 				}
 			}
 		})
@@ -79,7 +83,7 @@ function RelatorioDiario() {
 		// Soma os totais a partir da lista atualizada
 		Object.values(ordensPersistentes).forEach((order) => {
 			if (order.formaPagamento && totais.hasOwnProperty(order.formaPagamento)) {
-				totais[order.formaPagamento] += order.total
+				totais[order.formaPagamento] += order.total + order.cantina
 			}
 			totais.Caixinha += order.caixinha
 		})
@@ -122,7 +126,7 @@ function RelatorioDiario() {
 	return (
 		<div className="text-slate-900 space-y-6">
 			<h2 className="text-xl md:text-3xl font-bold text-white text-center mb-4">
-				📊 Relatório Diário
+				📊 Relatório Diário 📊
 			</h2>
 
 			{/* Quantidade de Veículos */}

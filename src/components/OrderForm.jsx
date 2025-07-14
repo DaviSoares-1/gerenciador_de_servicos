@@ -23,6 +23,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 		servicos: [],
 		total: "",
 		caixinha: "",
+		cantina: "",
 		formaPagamento: "",
 		descricaoOutros: "",
 		observacoes: "",
@@ -78,6 +79,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 			servicos: [],
 			total: "",
 			caixinha: "",
+			cantina: "",
 			formaPagamento: "",
 			descricaoOutros: "",
 			observacoes: "",
@@ -400,7 +402,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 					<div>
 						<label htmlFor="total" className="mb-2 block text-lg font-sans">
-							Total a pagar:
+							Total do Serviço:
 						</label>
 						<input
 							id="total"
@@ -427,6 +429,22 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 							value={form.caixinha}
 							onChange={(e) => setForm({ ...form, caixinha: e.target.value })}
 							className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full no-spinner"
+						/>
+					</div>
+					<div>
+						<label htmlFor="total" className="mb-2 block text-lg font-sans">
+							Cantina:
+						</label>
+						<input
+							id="total"
+							type="number"
+							min={0}
+							step={0.1}
+							placeholder="R$ 00,00"
+							value={form.cantina}
+							onChange={(e) => setForm({ ...form, cantina: e.target.value })}
+							className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full no-spinner"
+							required
 						/>
 					</div>
 				</div>

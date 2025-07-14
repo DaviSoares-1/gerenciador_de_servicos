@@ -7,6 +7,7 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 		placa: "",
 		total: "",
 		caixinha: "",
+		cantina: "",
 		numero: "",
 		status: ""
 	})
@@ -22,6 +23,7 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 			placa: "",
 			total: "",
 			caixinha: "",
+			cantina: "",
 			numero: "",
 			status: ""
 		})
@@ -46,6 +48,9 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 		const matchCaixinha = filtros.caixinha
 			? Number(order.caixinha) === Number(filtros.caixinha)
 			: true
+		const matchCantina = filtros.cantina
+			? Number(order.cantina) === Number(filtros.cantina)
+			: true
 		const matchNumero = filtros.numero
 			? Number(order.carroNumero) === Number(filtros.numero)
 			: true
@@ -58,6 +63,7 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 			matchPlaca &&
 			matchTotal &&
 			matchCaixinha &&
+			matchCantina &&
 			matchNumero &&
 			matchStatus
 		)
@@ -92,7 +98,7 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 						placeholder="Valor total (ex: R$ 30,00)"
 						min={0}
 						step={0.01}
-						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full no-spinner"
 					/>
 					<input
 						type="number"
@@ -102,7 +108,17 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 						placeholder="Caixinha (ex: R$ 5,00)"
 						min={0}
 						step={0.01}
-						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full no-spinner"
+					/>
+					<input
+						type="number"
+						name="cantina"
+						value={filtros.cantina}
+						onChange={handleChange}
+						placeholder="Cantina (ex: R$ 2,50)"
+						min={0}
+						step={0.01}
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full no-spinner"
 					/>
 					<input
 						type="number"
@@ -111,7 +127,7 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 						onChange={handleChange}
 						placeholder="Numeração do veículo"
 						min={0}
-						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full no-spinner"
 					/>
 					<select
 						name="status"
@@ -163,6 +179,9 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 								</p>
 								<p>
 									<strong>Caixinha:</strong> {formatBRL(order.caixinha)}
+								</p>
+								<p>
+									<strong>Cantina:</strong> {formatBRL(order.cantina)}
 								</p>
 								<p>
 									<strong>Ordem n°:</strong> {order.carroNumero}

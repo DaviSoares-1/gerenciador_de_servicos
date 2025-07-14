@@ -6,6 +6,7 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 		placa: "",
 		total: "",
 		caixinha: "",
+		cantina: "",
 		numero: "",
 		status: ""
 	})
@@ -21,6 +22,7 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 			placa: "",
 			total: "",
 			caixinha: "",
+			cantina: "",
 			numero: "",
 			status: ""
 		})
@@ -45,6 +47,9 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 		const matchCaixinha = filtros.caixinha
 			? Number(order.caixinha) === Number(filtros.caixinha)
 			: true
+		const matchCantina = filtros.cantina
+			? Number(order.cantina) === Number(filtros.cantina)
+			: true
 		const matchNumero = filtros.numero
 			? Number(order.carroNumero) === Number(filtros.numero)
 			: true
@@ -57,6 +62,7 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 			matchPlaca &&
 			matchTotal &&
 			matchCaixinha &&
+			matchCantina &&
 			matchNumero &&
 			matchStatus
 		)
@@ -65,7 +71,9 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 	return (
 		<>
 			<div className="mb-6 bg-gray-800 text-white p-4 rounded">
-				<h2 className="text-2xl font-semibold mb-4 text-center">🔍 Pesquisa por Veículos 🔍</h2>
+				<h2 className="text-2xl font-semibold mb-4 text-center">
+					🔍 Pesquisa por Veículos 🔍
+				</h2>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 					<input
 						type="text"
@@ -91,7 +99,7 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 						placeholder="Valor total (ex: R$ 30,00)"
 						min={0}
 						step={0.01}
-						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full no-spinner"
 					/>
 					<input
 						type="number"
@@ -101,7 +109,17 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 						placeholder="Caixinha (ex: R$ 5,00)"
 						min={0}
 						step={0.01}
-						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full no-spinner"
+					/>
+					<input
+						type="number"
+						name="cantina"
+						value={filtros.cantina}
+						onChange={handleChange}
+						placeholder="Cantina (ex: R$ 2,50)"
+						min={0}
+						step={0.01}
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full no-spinner"
 					/>
 					<input
 						type="number"
@@ -110,7 +128,7 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 						onChange={handleChange}
 						placeholder="Numeração do veículo"
 						min={0}
-						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full"
+						className="p-3 text-base rounded-lg bg-gray-300 text-gray-900 border border-gray-600 w-full no-spinner"
 					/>
 					<select
 						name="status"
@@ -145,7 +163,8 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 								className="bg-gray-700 text-white p-4 md:p-5 rounded shadow w-full text-lg min-h-[260px] flex flex-col justify-between"
 							>
 								<p>
-									<strong>Responsável:</strong> {order.responsavel.toUpperCase()}
+									<strong>Responsável:</strong>{" "}
+									{order.responsavel.toUpperCase()}
 								</p>
 								<p>
 									<strong>Modelo:</strong> {order.modeloCarro.toUpperCase()}
@@ -158,6 +177,9 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 								</p>
 								<p>
 									<strong>Caixinha:</strong> {formatBRL(order.caixinha)}
+								</p>
+								<p>
+									<strong>Cantina:</strong> {formatBRL(order.cantina)}
 								</p>
 								<p>
 									<strong>Ordem n°:</strong> {order.carroNumero}
