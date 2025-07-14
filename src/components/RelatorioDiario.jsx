@@ -143,7 +143,7 @@ function RelatorioDiario() {
 			</div>
 
 			{/* Valores a Receber */}
-			<div className="bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-lg p-4">
+			<div className="bg-gradient-to-br from-sky-400 to-sky-600 rounded-lg p-4">
 				<h3 className="text-xl font-semibold mb-2">💸 Valores a Receber:</h3>
 				<ul className="space-y-1">
 					<li>
@@ -154,7 +154,7 @@ function RelatorioDiario() {
 			</div>
 
 			{/* Valores Recebidos */}
-			<div className="bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-lg p-4">
+			<div className="bg-gradient-to-br from-lime-400 to-lime-600 rounded-lg p-4">
 				<h3 className="text-xl font-semibold mb-2">💰 Valores Recebidos:</h3>
 				<ul className="space-y-1">
 					<li>
@@ -186,7 +186,7 @@ function RelatorioDiario() {
 			</div>
 
 			{/* Controle de Gastos */}
-			<div className="bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-lg p-4">
+			<div className="bg-gradient-to-br from-red-400 to-red-600 rounded-lg p-4">
 				<h3 className="text-xl font-semibold mb-2">🗂️ Controle de Gastos:</h3>
 				<label className="flex items-center gap-2 mb-4">
 					<input
