@@ -81,7 +81,7 @@ export const generatePDF = async (order) => {
 	addLine("Serviços Solicitados:")
 	order.servicos.forEach((s) => addLine(`- ${s}`))
 
-	addLine(`Total a Pagar: ${totalPagoFormatado}`)
+	addLine(`Total do Serviço: ${totalPagoFormatado}`)
 	addLine(`Caixinha: ${caixinhaFormatado}`)
 	addLine(`Cantina: ${cantinaFormatado}`)
 
