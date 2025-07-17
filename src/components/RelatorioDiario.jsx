@@ -102,6 +102,34 @@ function RelatorioDiario() {
 		}
 	}, [orders])
 
+	const valoresCantina = useMemo(() => {
+		const totaisCantina = {
+			Dinheiro: 0,
+			"Cartão de Crédito/Débito": 0,
+			PIX: 0
+		}
+
+		const ordensPersistentes =
+			JSON.parse(localStorage.getItem("ordensPersistentes")) || {}
+
+		Object.values(ordensPersistentes).forEach((order) => {
+			if (
+				order.formaPagamento &&
+				totaisCantina.hasOwnProperty(order.formaPagamento)
+			) {
+				totaisCantina[order.formaPagamento] += parseFloat(order.cantina || 0)
+			}
+		})
+
+		return {
+			...totaisCantina,
+			total:
+				totaisCantina.Dinheiro +
+				totaisCantina["Cartão de Crédito/Débito"] +
+				totaisCantina.PIX
+		}
+	}, [orders])
+
 	const totalGastos = gastos.reduce((acc, g) => acc + g.valor, 0)
 	const totalServicosPrestados = orders.length + deletedOrders.length
 
@@ -194,9 +222,31 @@ function RelatorioDiario() {
 					</li>
 				</ul>
 			</div>
+			{/* Vendas da Cantina */}
+			<div className="bg-gradient-to-br from-lime-400 to-lime-600 rounded-lg p-4">
+				<h3 className="text-xl font-semibold mb-2">🍔 Vendas da Cantina:</h3>
+				<ul className="space-y-1">
+					<li>
+						<span className="font-bold">• Dinheiro: </span>
+						{formatarBRL(valoresCantina.Dinheiro)}
+					</li>
+					<li>
+						<span className="font-bold">• Cartão de Crédito/Débito: </span>
+						{formatarBRL(valoresCantina["Cartão de Crédito/Débito"])}
+					</li>
+					<li>
+						<span className="font-bold">• PIX: </span>
+						{formatarBRL(valoresCantina.PIX)}
+					</li>
+					<li>
+						<span className="font-bold">• Total da Cantina: </span>
+						{formatarBRL(valoresCantina.total)}
+					</li>
+				</ul>
+			</div>
 
 			{/* Controle de Gastos */}
-			<div className="bg-gradient-to-br from-red-400 to-red-600 rounded-lg p-4">
+			<div className="bg-gradient-to-br from-red-400 to-red-600 rounded-lg p-4 text-slate-200">
 				<h3 className="text-xl font-semibold mb-2">🗂️ Controle de Gastos:</h3>
 				<label className="flex items-center gap-2 mb-4">
 					<input
