@@ -229,8 +229,11 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 	return (
 		<div
 			ref={wrapperRef}
-			className="min-h-screen flex items-center justify-center px-4 py-10"
+			className="min-h-screen flex items-center justify-center p-4 flex-col "
 		>
+			<h2 className="text-xl md:text-3xl font-bold text-white text-center mb-4">
+				📑 Ficha de Serviço 📑
+			</h2>
 			{showToast && <Toast message={toastMessage} type={toastType} />}
 			<form
 				onSubmit={handleSubmit}
