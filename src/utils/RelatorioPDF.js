@@ -1,9 +1,9 @@
-// src/utils/RelatorioPDF.js
 import jsPDF from "jspdf"
 
 export const generateRelatorioDiarioPDF = ({
 	totalServicosPrestados,
 	valoresRecebidos,
+	valoresCantina,
 	gastos
 }) => {
 	const doc = new jsPDF()
@@ -47,11 +47,11 @@ export const generateRelatorioDiarioPDF = ({
 	addHeader()
 
 	// Quantidade de veículos
-	addSectionTitle("Quantidade de Veículos")
+	addSectionTitle("QUANTIDADE DE VEÍCULOS")
 	addLine(`• Total de serviços prestados: ${totalServicosPrestados}`)
 
 	// Valores recebidos
-	addSectionTitle("Valores Recebidos")
+	addSectionTitle("VALORES RECEBIDOS")
 	addLine(`• Dinheiro: ${formatBRL(valoresRecebidos.Dinheiro)}`)
 	addLine(
 		`• Cartão de Crédito/Débito: ${formatBRL(
@@ -63,8 +63,19 @@ export const generateRelatorioDiarioPDF = ({
 	addLine(`• Cantina: ${formatBRL(valoresRecebidos.Cantina)}`)
 	addLine(`• Total Recebido: ${formatBRL(valoresRecebidos.total)}`)
 
+	// Vendas da Cantina
+	addSectionTitle("VENDAS DA CANTINA")
+	addLine(`• Dinheiro: ${formatBRL(valoresCantina.Dinheiro)}`)
+	addLine(
+		`• Cartão de Crédito/Débito: ${formatBRL(
+			valoresCantina["Cartão de Crédito/Débito"]
+		)}`
+	)
+	addLine(`• PIX: ${formatBRL(valoresCantina.PIX)}`)
+	addLine(`• Total Recebido: ${formatBRL(valoresCantina.total)}`)
+
 	// Gastos
-	addSectionTitle("Gastos Diários")
+	addSectionTitle("GASTOS DIÁRIOS")
 	if (gastos.length > 0) {
 		gastos.forEach((g) => {
 			addLine(`• ${g.descricao}: ${formatBRL(g.valor)}`)

@@ -157,6 +157,7 @@ function RelatorioDiario() {
 		generateRelatorioDiarioPDF({
 			totalServicosPrestados,
 			valoresRecebidos,
+			valoresCantina,
 			gastos
 		})
 	}
