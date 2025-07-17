@@ -71,9 +71,7 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 	return (
 		<>
 			<div className="mb-6 bg-gray-800 text-white p-4 rounded">
-				<h2 className="text-2xl font-semibold mb-4 text-center">
-					🔍 Pesquisa por Veículos 🔍
-				</h2>
+				<h2 className="text-2xl font-semibold mb-4 place-self-start">🔍 Pesquisa por Veículos:</h2>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 					<input
 						type="text"
@@ -144,7 +142,7 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 				<div className="mt-4 flex justify-center">
 					<button
 						onClick={handleLimparFiltro}
-						className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+						className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 shadow-lg"
 					>
 						Limpar Filtro
 					</button>
@@ -160,7 +158,7 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 						.map((order) => (
 							<div
 								key={order.id}
-								className="bg-gray-700 text-white p-4 md:p-5 rounded shadow w-full text-lg min-h-[260px] flex flex-col justify-between"
+								className="bg-gradient-to-br from-gray-600 to-gray-700 text-white p-4 md:p-5 rounded shadow w-full text-lg min-h-[260px] flex flex-col justify-between"
 							>
 								<p>
 									<strong>Responsável:</strong>{" "}
@@ -190,13 +188,13 @@ function TrashListSection({ deletedOrders, onRestore, onPermanentDelete }) {
 								<div className="flex gap-2 mt-2">
 									<button
 										onClick={() => onRestore(order)}
-										className="bg-blue-600 px-2 py-1 rounded cursor-pointer"
+										className="bg-blue-600 px-2 py-1 rounded cursor-pointer shadow-lg"
 									>
 										Restaurar
 									</button>
 									<button
 										onClick={() => onPermanentDelete(order)}
-										className="bg-red-700 px-2 py-1 rounded cursor-pointer"
+										className="bg-red-700 px-2 py-1 rounded cursor-pointer shadow-lg"
 									>
 										Apagar
 									</button>

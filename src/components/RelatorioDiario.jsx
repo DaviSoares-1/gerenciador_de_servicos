@@ -165,7 +165,7 @@ function RelatorioDiario() {
 	return (
 		<div className="text-slate-900 space-y-6">
 			<h2 className="text-xl md:text-3xl font-bold text-white text-center mb-4">
-				📊 Relatório Diário 📊
+				📊 Relatório Diário
 			</h2>
 
 			{/* Quantidade de Veículos */}
@@ -247,7 +247,7 @@ function RelatorioDiario() {
 			</div>
 
 			{/* Controle de Gastos */}
-			<div className="bg-gradient-to-br from-red-400 to-red-600 rounded-lg p-4 text-slate-200">
+			<div className="bg-gradient-to-br from-red-600 to-red-800 rounded-lg p-4 text-slate-200">
 				<h3 className="text-xl font-semibold mb-2">🗂️ Controle de Gastos:</h3>
 				<label className="flex items-center gap-2 mb-4">
 					<input
@@ -315,7 +315,7 @@ function RelatorioDiario() {
 										}
 									/>
 									<button
-										className="bg-green-600 text-white px-2 py-1 rounded"
+										className="bg-green-600 text-white px-2 py-1 rounded cursor-pointer"
 										onClick={() => {
 											const atualizados = [...gastos]
 											atualizados[i] = gastoEditado
@@ -326,7 +326,7 @@ function RelatorioDiario() {
 										Salvar
 									</button>
 									<button
-										className="bg-gray-500 text-white px-2 py-1 rounded"
+										className="bg-gray-500 text-white px-2 py-1 rounded cursor-pointer"
 										onClick={() => setGastoEditandoIndex(null)}
 									>
 										Cancelar
@@ -339,7 +339,7 @@ function RelatorioDiario() {
 									</span>
 									{formatarBRL(g.valor)}
 									<button
-										className="bg-blue-700 text-white px-2 py-1 rounded ml-2"
+										className="bg-blue-700 text-white px-2 py-1 rounded ml-2 cursor-pointer shadow-lg"
 										onClick={() => {
 											setGastoEditandoIndex(i)
 											setGastoEditado({ ...g })
@@ -348,7 +348,7 @@ function RelatorioDiario() {
 										Editar
 									</button>
 									<button
-										className="bg-red-700 text-white px-2 py-1 rounded"
+										className="bg-red-600 text-white px-2 py-1 rounded cursor-pointer shadow-lg"
 										onClick={() => {
 											const atualizados = gastos.filter(
 												(_, index) => index !== i
@@ -372,13 +372,13 @@ function RelatorioDiario() {
 			<div className="flex gap-4 justify-center flex-wrap">
 				<button
 					onClick={handleBaixarRelatorio}
-					className="mt-4 bg-green-600 hover:bg-green-800 text-white px-6 py-3 rounded-lg text-lg font-bold cursor-pointer"
+					className="mt-4 bg-green-600 hover:bg-green-800 text-white px-6 py-3 rounded-lg text-lg font-bold cursor-pointer shadow-lg"
 				>
 					📥 Baixar Relatório Diário
 				</button>
 				<button
 					onClick={handleLimparDados}
-					className="mt-4 bg-red-700 hover:bg-red-800 text-white px-6 py-3 rounded-lg text-lg font-bold cursor-pointer"
+					className="mt-4 bg-red-700 hover:bg-red-800 text-white px-6 py-3 rounded-lg text-lg font-bold cursor-pointer shadow-lg"
 				>
 					🧹 Limpar Dados e Resetar Sistema
 				</button>

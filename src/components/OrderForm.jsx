@@ -232,7 +232,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 			className="min-h-screen flex items-center justify-center p-4 flex-col "
 		>
 			<h2 className="text-xl md:text-3xl font-bold text-white text-center mb-4">
-				📑 Ficha de Serviço 📑
+				📝 Ficha de Serviço
 			</h2>
 			{showToast && <Toast message={toastMessage} type={toastType} />}
 			<form
@@ -487,7 +487,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 					Anexar Nota Fiscal:
 				</h2>
 				<div className="space-y-2">
-					<label className="cursor-pointer inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">
+					<label className="cursor-pointer inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 shadow-lg">
 						Selecionar Arquivo
 						<input
 							ref={fileInputRef}
@@ -517,7 +517,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 							<button
 								type="button"
 								onClick={handleRemoverArquivo}
-								className="inline-block bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 text-sm"
+								className="inline-block bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 text-sm shadow-lg"
 							>
 								Remover Arquivo
 							</button>
@@ -528,7 +528,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 				<div className="flex flex-wrap gap-4">
 					<button
 						type="submit"
-						className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+						className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 shadow-lg" 
 					>
 						{editingOrder ? "Atualizar" : "Criar"} Ordem de Serviço
 					</button>
@@ -538,7 +538,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 								<button
 									type="button"
 									onClick={handleConcluir}
-									className={`px-6 py-2 rounded text-white ${
+									className={`px-6 py-2 rounded text-white shadow-lg ${
 										form.formaPagamento && !isCarroNumeroDuplicado()
 											? "bg-green-600 hover:bg-green-700"
 											: "bg-gray-400 cursor-not-allowed"
@@ -552,7 +552,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 								<button
 									type="button"
 									onClick={handleReabrir}
-									className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded"
+									className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded shadow-lg"
 								>
 									Reabrir Serviço
 								</button>

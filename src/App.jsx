@@ -77,7 +77,7 @@ function App() {
     <div className="bg-gray-900 min-h-screen flex flex-col md:flex-row custom-scrollbar">
       <div className="flex-1 overflow-auto p-4">
         <h1 className="text-2xl md:text-3xl font-bold text-center text-white mb-4 md:mb-6">
-          📑Sistema de Ordens de Serviços📑
+          📑 Sistema de Ordens de Serviços - JJ LAVA-JATO
         </h1>
 
         {showToast && <Toast message={toastMessage} type={toastType} />}
@@ -100,7 +100,7 @@ function App() {
 
             <div className="bg-gray-800 p-4 rounded-lg shadow-md">
               <h2 className="text-xl md:text-3xl font-bold text-white text-center mb-4">
-                📝 Ordens Geradas: 📝
+                🏷️ Ordens Geradas:
               </h2>
               <OrderListSection
                 orders={orders}
@@ -111,7 +111,7 @@ function App() {
 
             <div className="bg-gray-800 p-4 rounded-lg shadow-md">
               <h2 className="text-xl md:text-3xl font-bold text-white text-center mb-4">
-                🗑️ Lixeira 🗑️
+                🗑️ Lixeira:
               </h2>
               <TrashListSection
                 deletedOrders={deletedOrders}

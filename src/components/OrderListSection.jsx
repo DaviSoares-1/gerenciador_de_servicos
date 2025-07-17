@@ -72,7 +72,7 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 	return (
 		<>
 			<div className="flex flex-col items-center gap-3 mb-6 text-white">
-				<h2 className="text-2xl font-semibold mb-4 text-center">🔍 Pesquisa por Veículos 🔍</h2>
+				<h2 className="text-2xl font-semibold mb-4 place-self-start">🔍 Pesquisa por Veículos:</h2>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-5xl">
 					<input
 						type="text"
@@ -144,7 +144,7 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 				<div className="flex gap-2 mt-2">
 					<button
 						onClick={handleLimparFiltro}
-						className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+						className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow-lg"
 					>
 						Limpar Filtros
 					</button>
@@ -162,7 +162,7 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 						.map((order) => (
 							<div
 								key={order.id}
-								className="bg-yellow-500 p-4 md:p-5 rounded shadow w-full text-lg min-h-[260px] flex flex-col justify-between"
+								className="bg-gradient-to-br from-yellow-300 to-yellow-600 p-4 md:p-5 rounded shadow w-full text-lg min-h-[260px] flex flex-col justify-between"
 							>
 								<p>
 									<strong>Responsável:</strong>{" "}
@@ -192,20 +192,20 @@ function OrderListSection({ orders, onEdit, onDelete }) {
 								<div className="flex gap-2 mt-2 flex-wrap">
 									<button
 										onClick={() => onEdit(order)}
-										className="bg-yellow-400 px-2 py-1 rounded cursor-pointer"
+										className="bg-yellow-400 px-2 py-1 rounded cursor-pointer shadow-lg"
 									>
 										Editar
 									</button>
 									<button
 										onClick={() => onDelete(order)}
-										className="bg-red-500 text-white px-2 py-1 rounded cursor-pointer"
+										className="bg-red-500 text-white px-2 py-1 rounded cursor-pointer shadow-lg"
 									>
 										Excluir
 									</button>
 									{order.status === "processada" && (
 										<button
 											onClick={() => generatePDF(order)}
-											className="bg-green-600 text-white px-2 py-1 rounded cursor-pointer"
+											className="bg-green-600 text-white px-2 py-1 rounded cursor-pointer shadow-lg"
 										>
 											Baixar
 										</button>
