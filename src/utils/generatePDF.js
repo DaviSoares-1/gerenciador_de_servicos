@@ -32,8 +32,11 @@ export const generatePDF = async (order) => {
 			"center"
 		)
 		doc.setFontSize(14)
-		doc.text("CNPJ: 58.736.525/0001-70", 105, 16, null, null, "center")
-		y = 30
+		doc.text("CNPJ: 58.736.525/0001-70", 105, 18, null, null, "center")
+		y = 25
+		doc.setLineWidth(0.5)
+		doc.line(10, y, 200, y)
+		y += 14
 	}
 
 	const addFooter = () => {
