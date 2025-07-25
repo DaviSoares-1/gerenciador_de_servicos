@@ -66,31 +66,31 @@ export const generatePDF = async (order) => {
 
 	addHeader()
 
-	addLine(`Status: ${order.status.toUpperCase()}`)
+	addLine(`• Status: ${order.status.toUpperCase()}`)
 	addLine(
-		`Data e Hora: ${newFormatDate
+		`• Data e Hora: ${newFormatDate
 			.concat(day, "/", month, "/", year)
 			.join("")} - ${date.slice(11).join("")}`
 	)
-	addLine(`Responsável: ${order.responsavel.toUpperCase().trim()}`)
-	addLine(`Carro N°: ${order.carroNumero}`)
+	addLine(`• Responsável: ${order.responsavel.toUpperCase().trim()}`)
+	addLine(`• Carro N°: ${order.carroNumero}`)
 
-	addLine(`Modelo do Carro: ${order.modeloCarro.toUpperCase().trim()}`)
-	addLine(`Placa do Carro: ${order.placaCarro.toUpperCase().trim()}`)
+	addLine(`• Modelo do Carro: ${order.modeloCarro.toUpperCase().trim()}`)
+	addLine(`• Placa do Carro: ${order.placaCarro.toUpperCase().trim()}`)
 
-	addLine("Tipo de Veículo:")
+	addLine("• Tipo de Veículo:")
 	order.tipoVeiculo.forEach((s) => addLine(`- ${s}`))
 
-	addLine("Serviços Solicitados:")
+	addLine("• Serviços Solicitados:")
 	order.servicos.forEach((s) => addLine(`- ${s}`))
 
-	addLine(`Total do Serviço: ${totalPagoFormatado}`)
-	addLine(`Caixinha: ${caixinhaFormatado}`)
-	addLine(`Cantina: ${cantinaFormatado}`)
+	addLine(`• Total do Serviço: ${totalPagoFormatado}`)
+	addLine(`• Caixinha: ${caixinhaFormatado}`)
+	addLine(`• Cantina: ${cantinaFormatado}`)
 
-	addLine(`Forma de Pagamento: ${order.formaPagamento}`)
+	addLine(`• Forma de Pagamento: ${order.formaPagamento}`)
 	if (order.formaPagamento === "Outros") {
-		addLine(`Descrição do Pagamento: `)
+		addLine(`• Descrição do Pagamento: `)
 		const descricao = (order.descricaoOutros ?? "").toString()
 		const descricaoText =
 			descricao.charAt(0).toUpperCase() + descricao.slice(1).toLowerCase()
@@ -101,7 +101,7 @@ export const generatePDF = async (order) => {
 		})
 	}
 
-	addLine("Observações: ")
+	addLine("• Observações: ")
 	if (order.observacoes !== "") {
 		const observacoes = (order.observacoes ?? "").toString()
 		const obsText =

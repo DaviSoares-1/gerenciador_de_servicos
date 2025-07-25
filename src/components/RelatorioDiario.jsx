@@ -246,9 +246,9 @@ function RelatorioDiario() {
 			</div>
 
 			{/* Controle de Gastos */}
-			<div className="bg-gradient-to-br from-red-600 to-red-800 rounded-lg p-4 text-slate-200">
-				<h3 className="text-xl font-semibold mb-2">🗂️ Controle de Gastos:</h3>
-				<label className="flex items-center gap-2 mb-4">
+			<div className="bg-gradient-to-br from-red-600 to-red-800 rounded-lg p-4">
+				<h3 className="text-xl font-semibold mb-2 text-slate-200">🗂️ Controle de Gastos:</h3>
+				<label className="flex items-center gap-2 mb-4 text-slate-200">
 					<input
 						type="checkbox"
 						checked={mostrarInputs}
@@ -286,12 +286,12 @@ function RelatorioDiario() {
 
 				<ul className="mt-4 space-y-2">
 					{gastos.map((g, i) => (
-						<li key={i} className="text-lg flex items-center gap-2 flex-wrap">
+						<li key={i} className="text-lg flex items-center gap-2 flex-wrap text-slate-200">
 							{gastoEditandoIndex === i ? (
 								<>
 									<input
 										type="text"
-										className="p-1 rounded bg-gray-200 border border-gray-500"
+										className="p-1 rounded bg-gray-200 border border-gray-500 text-gray-900"
 										value={gastoEditado.descricao}
 										onChange={(e) =>
 											setGastoEditado((prev) => ({
@@ -304,7 +304,7 @@ function RelatorioDiario() {
 										type="number"
 										min={0}
 										step={0.1}
-										className="p-1 rounded bg-gray-200 border border-gray-500"
+										className="p-1 rounded bg-gray-200 border border-gray-500 text-gray-900"
 										value={gastoEditado.valor}
 										onChange={(e) =>
 											setGastoEditado((prev) => ({
@@ -361,7 +361,7 @@ function RelatorioDiario() {
 							)}
 						</li>
 					))}
-					<li>
+					<li className="text-slate-200">
 						<span className="font-bold">• Total de Gastos: </span>{" "}
 						{formatarBRL(totalGastos)}
 					</li>
