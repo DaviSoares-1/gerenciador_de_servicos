@@ -517,7 +517,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 							<button
 								type="button"
 								onClick={handleRemoverArquivo}
-								className="inline-block bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 text-sm shadow-lg"
+								className="inline-block bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 text-sm shadow-lg cursor-pointer"
 							>
 								Remover Arquivo
 							</button>
@@ -552,7 +552,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 								<button
 									type="button"
 									onClick={handleReabrir}
-									className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded shadow-lg"
+									className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded shadow-lg cursor-pointer"
 								>
 									Reabrir Serviço
 								</button>

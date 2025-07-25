@@ -42,7 +42,7 @@ function Toast({ message, type }) {
 	}
 
 	return (
-		<div className="fixed top-6 right-6 z-50">
+		<div className="fixed top-2 left-10 z-50">
 			<div
 				className={`text-2xl flex items-center gap-2 text-white px-6 py-3 rounded-lg shadow-md font-sans font-semibold ${bgColor}`}
 			>
