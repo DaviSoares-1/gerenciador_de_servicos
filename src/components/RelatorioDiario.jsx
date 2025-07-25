@@ -1,6 +1,10 @@
 import React, { useState, useMemo, useEffect } from "react"
 import useOrders from "../store/useOrders"
 import { generateRelatorioDiarioPDF } from "../utils/RelatorioPDF"
+import {
+	getCompressedItem,
+	setCompressedItem
+} from "../utils/localStorageHelper"
 
 function RelatorioDiario() {
 	const { orders, deletedOrders } = useOrders()
@@ -11,15 +15,15 @@ function RelatorioDiario() {
 	const [gastoEditandoIndex, setGastoEditandoIndex] = useState(null)
 	const [gastoEditado, setGastoEditado] = useState({ descricao: "", valor: 0 })
 
-	// Carrega os gastos do localStorage ao montar o componente
+	// Carrega gastos
 	useEffect(() => {
-		const gastosSalvos = JSON.parse(localStorage.getItem("gastosDiarios")) || []
+		const gastosSalvos = getCompressedItem("gastosDiarios", [])
 		setGastos(gastosSalvos)
 	}, [])
 
-	// Salva os gastos no localStorage sempre que eles forem atualizados
+	// Salva gastos
 	useEffect(() => {
-		localStorage.setItem("gastosDiarios", JSON.stringify(gastos))
+		setCompressedItem("gastosDiarios", gastos)
 	}, [gastos])
 
 	const formatarBRL = (valor) =>
@@ -52,8 +56,7 @@ function RelatorioDiario() {
 			Cantina: 0
 		}
 
-		const ordensPersistentes =
-			JSON.parse(localStorage.getItem("ordensPersistentes")) || {}
+		let ordensPersistentes = getCompressedItem("ordensPersistentes", {})
 
 		orders.forEach((order) => {
 			const id = order.id || order.numero || JSON.stringify(order)
@@ -90,10 +93,7 @@ function RelatorioDiario() {
 			totais.Caixinha += order.caixinha
 		})
 
-		localStorage.setItem(
-			"ordensPersistentes",
-			JSON.stringify(ordensPersistentes)
-		)
+		setCompressedItem("ordensPersistentes", ordensPersistentes)
 
 		return {
 			...totais,
@@ -109,8 +109,7 @@ function RelatorioDiario() {
 			PIX: 0
 		}
 
-		const ordensPersistentes =
-			JSON.parse(localStorage.getItem("ordensPersistentes")) || {}
+		const ordensPersistentes = getCompressedItem("ordensPersistentes", {})
 
 		Object.values(ordensPersistentes).forEach((order) => {
 			if (

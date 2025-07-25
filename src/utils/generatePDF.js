@@ -118,7 +118,12 @@ export const generatePDF = async (order) => {
 	addFooter()
 
 	// Adiciona a imagem da nota fiscal se existir
-	if (order.notaFiscalUrl) {
+	// Adiciona a imagem da nota fiscal se for um base64 válido
+	if (
+		order.notaFiscalUrl &&
+		typeof order.notaFiscalUrl === "string" &&
+		order.notaFiscalUrl.startsWith("data:image")
+	) {
 		doc.addPage()
 		doc.addImage(order.notaFiscalUrl, "JPEG", 10, 10, 180, 160)
 	}

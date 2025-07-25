@@ -60,7 +60,6 @@ export const generateRelatorioDiarioPDF = ({
 	)
 	addLine(`• PIX: ${formatBRL(valoresRecebidos.PIX)}`)
 	addLine(`• Caixinha: ${formatBRL(valoresRecebidos.Caixinha)}`)
-	addLine(`• Cantina: ${formatBRL(valoresRecebidos.Cantina)}`)
 	addLine(`• Total Recebido: ${formatBRL(valoresRecebidos.total)}`)
 
 	// Vendas da Cantina

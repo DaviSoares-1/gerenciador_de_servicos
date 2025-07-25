@@ -1,5 +1,6 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
+import { compressToUTF16, decompressFromUTF16 } from "lz-string"
 
 const useOrders = create(
 	persist(
@@ -44,7 +45,10 @@ const useOrders = create(
 		}),
 		{
 			name: "orders-storage",
-			getStorage: () => localStorage
+			getStorage: () => localStorage,
+			// Compressão LZ
+			serialize: (state) => compressToUTF16(JSON.stringify(state)),
+			deserialize: (str) => JSON.parse(decompressFromUTF16(str))
 		}
 	)
 )
