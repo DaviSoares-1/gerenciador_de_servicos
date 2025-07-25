@@ -16,16 +16,23 @@ export const generateRelatorioDiarioPDF = ({
 		}).format(+valor)
 
 	const addHeader = () => {
-		doc.setFontSize(20)
-		doc.text("RELATÓRIO DIÁRIO - JJ LAVA-JATO", 105, y, null, null, "center")
+		doc.setFontSize(24)
+		doc.text(
+			"ORDEM DE SERVIÇO JJ LAVA-JATO LTDA",
+			105,
+			y,
+			null,
+			null,
+			"center"
+		)
 		y += 10
-		doc.setFontSize(12)
-    doc.setLineWidth(0.5)
-		doc.line(10, y, 200, y)
-		y += 6
+		doc.setFontSize(14)
 		const dataAtual = new Date().toLocaleString("pt-BR")
 		doc.text(`Gerado em: ${dataAtual}`, 105, y, null, null, "center")
-		y += 10
+		y = 25
+		doc.setLineWidth(0.5)
+		doc.line(10, y, 200, y)
+		y += 14
 	}
 
 	const addSectionTitle = (title) => {
