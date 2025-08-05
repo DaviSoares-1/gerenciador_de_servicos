@@ -47,6 +47,22 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 	useEffect(() => {
 		if (editingOrder) setForm(editingOrder)
 	}, [editingOrder])
+	useEffect(() => {
+		if (!editingOrder && form.carroNumero === "") {
+			const todasAsOrdens = [...orders, ...deletedOrders]
+			const maioresNumeros = todasAsOrdens
+				.map((order) => Number(order.carroNumero))
+				.filter((num) => !isNaN(num)) // garante que só números válidos sejam usados
+
+			const proximoNumero =
+				maioresNumeros.length > 0 ? Math.max(...maioresNumeros) + 1 : 1
+
+			setForm((prevForm) => ({
+				...prevForm,
+				carroNumero: proximoNumero
+			}))
+		}
+	}, [editingOrder, orders, deletedOrders])
 
 	const handleChangeVeiculo = (e) => {
 		const { value, checked } = e.target
@@ -540,7 +556,7 @@ function OrderForm({ editingOrder, setEditingOrder }, ref) {
 									onClick={handleConcluir}
 									className={`px-6 py-2 rounded text-white shadow-lg ${
 										form.formaPagamento && !isCarroNumeroDuplicado()
-											? "bg-green-600 hover:bg-green-700"
+											? "bg-green-600 hover:bg-green-700 cursor-pointer"
 											: "bg-gray-400 cursor-not-allowed"
 									}`}
 									disabled={!form.formaPagamento || isCarroNumeroDuplicado()}
